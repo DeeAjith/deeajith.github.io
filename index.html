@@ -77,7 +77,7 @@ controls.update();
 
     //SCENE
     scene = new THREE.Scene();
-
+    var domEvents = new THREEx.DomEvents(camera, renderer.domElement);
     //LIGHTS
     {
     var skyColor = 0xB1E1FF;  // light blue
