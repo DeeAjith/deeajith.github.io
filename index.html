@@ -50,13 +50,7 @@
         
      
        
-    //     domEvents.addEventListener(mesh, 'click', function(event){
-    //         // mesh.scale.x+=2;
-    //         var text = this._createTextLabel();
-    //   text.setHTML("Label "+i);
-    // //   text.setParent(mesh);
-    // //   this.textlabels.push(text);
-    // //   this.container.appendChild(text.element);
+        
     var renderer,
     	scene,
     	camera,
@@ -119,6 +113,10 @@ controls.update();
         // mesh.scale.set(20,20,20);
       
     }
+	    domEvents.addEventListener(mesh, 'click', function(event){
+            // mesh.scale.x+=2;
+        	console.log("mesh clicked",mesh)
+      )}
 
 
     //RENDER LOOP
