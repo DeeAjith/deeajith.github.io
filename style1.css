@@ -32,16 +32,37 @@ canvas {
     visibility: hidden;
 }
 
-a {
-    display: inline;
-    position: relative;
-    background: #FFF;
-    margin: 20px;
-    z-index: 5;
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    z-index: 10;
 }
 
-.pg1 {
+li {
+    float: left;
+    border-right: 1px solid #bbb;
+}
 
-    padding: 0 0 0 20px;
-    /* position: absolute; */
+li:last-child {
+    border-right: none;
+}
+
+li a {
+    font-family: monospace;
+    font-weight: 700;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+.active {
+    background: rgb(238, 61, 30);
 }
