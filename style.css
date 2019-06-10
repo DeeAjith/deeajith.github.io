@@ -75,3 +75,6 @@ li a:hover:not(.active) {
 .active {
     background: rgb(238, 61, 30);
 }
+progress{
+    position:absolute;
+  }

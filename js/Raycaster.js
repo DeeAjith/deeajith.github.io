@@ -1,4 +1,4 @@
-import { Ray } from '../math/Ray.js';
+import { Ray } from 'https://raw.githubusercontent.com/mrdoob/three.js/master/src/math/Ray.js';
 
 /**
  * @author mrdoob / http://mrdoob.com/
