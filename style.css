@@ -19,7 +19,7 @@ body {
 
 canvas {
     /* background: rgb(13, 62, 102); */
-    width: 100%;
+    width: 25%;
     height: 100vh;
     float: right;
 }
@@ -39,6 +39,7 @@ canvas {
     /* margin-bottom: 20px; */
     background: linear-gradient(to right, rgb(0, 110, 255), rgb(255, 72, 0));
     border-radius: 10px;
+    display: none;
 }
 
 ul {
@@ -72,9 +73,33 @@ li a {
 li a:hover:not(.active) {
     background-color: #111;
 }
+
 .active {
     background: rgb(238, 61, 30);
 }
-progress{
-    position:absolute;
-  }
+
+/* .annotation {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    z-index: 1;
+    margin-left: 15px;
+    margin-top: 15px; 
+    padding: 1em;
+    width: 200px;
+    height: 100%;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.8);
+    /* border-radius: .5em; 
+    font-size: 12px;
+    line-height: 1.2;
+    transition: opacity .5s;
+}*/
+.three-div{
+    background: rgb(255, 150, 31);
+    /* color: #111; */
+    color: white;
+    /* width: 1024px;
+    height:786px; */
+    border-radius: 5px;
+}
