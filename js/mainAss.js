@@ -145,7 +145,7 @@ var SHADOW_MAP_WIDTH = 2048,
         rmdiv();
     }, false)
 
-    //windows resize
+    //windows resizee
 
 
     // //RayCaster
