@@ -1,6 +1,6 @@
 "use strict";
 var renderer, renderer2,
-    scene, scene2, bog, element, div,
+    scene, scene2, bog, element, div, intersects,
     camera,
     myCanvas = document.querySelector("#myCanvas");
 var SHADOW_MAP_WIDTH = 2048,
@@ -90,15 +90,16 @@ var SHADOW_MAP_WIDTH = 2048,
     loader.load('/asse.gltf', function handle_load(gltf) {
 
         console.log(gltf);
-        gltf.scene.traverse(function (child) {
-            if (child.isMesh) {
-                child.receiveShadow = true;
-                child.castShadow = true;
-                child.material.transparent = true;
-                child.material.opacity = 0.9;
+        bog = gltf.scene;
+
+        bog.traverse(function (node) {
+
+            if (node instanceof THREE.Mesh) {
+                node.castShadow = true;
             }
+
         });
-        scene.add(gltf.scene);
+        scene.add(bog);
 
     });
     var geom = new THREE.PlaneGeometry(2000, 2000, .01);
@@ -116,6 +117,7 @@ var SHADOW_MAP_WIDTH = 2048,
     function adiv() {
         // console.log("clicked")
         element = document.createElement('div');
+        // element.setAttribute("src", "http://railmaniac.blogspot.com/2015/07/icf-detailed.html");
         element.innerHTML = 'Annotation of bogie in 3d floor.';
         element.className = 'three-div';
 
@@ -135,24 +137,39 @@ var SHADOW_MAP_WIDTH = 2048,
         scene2.remove(div)
     }
 
-    var domEvents = new THREEx.DomEvents(camera, renderer2.domElement)
-    domEvents.addEventListener(bog, 'mouseover', function (event) {
-        adiv();
-    }, false)
+    // var domEvents = new THREEx.DomEvents(camera, renderer2.domElement)
+    // domEvents.addEventListener(bog, 'mouseover', function (event) {
+    //     adiv();
+    // }, false)
 
-    domEvents.addEventListener(bog, 'mouseout', function (event) {
-        rmdiv();
-    }, false)
+    // domEvents.addEventListener(bog, 'mouseout', function (event) {
+        //     rmdiv();
+        // }, false)
+        
+        //windows resize
+        
+        
 
-    //windows resize
-
-
+        //add label
+        window.addEventListener('mousedown', onDocumentMouseDown, true);
+            function onDocumentMouseDown(event) {
+            
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+                raycaster.setFromCamera(mouse, camera);
+                intersects = raycaster.intersectObjects(bog.children[0]);
+                    console.log("clicked");
+                    
+                    //here comes event
+                    adiv();
+                
+            }
     window.addEventListener('resize', onWindowResize, false);
 }
 
-
 render();
 animate();
+
 
 function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
