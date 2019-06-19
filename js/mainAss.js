@@ -1,7 +1,8 @@
-var renderer,
-    scene, scene2, bog,
+"use strict";
+var renderer, renderer2,
+    scene, scene2, bog, element, div,
     camera,
-    myCanvas = document.getElementById('myCanvas');
+    myCanvas = document.querySelector("#myCanvas");
 var SHADOW_MAP_WIDTH = 2048,
     SHADOW_MAP_HEIGHT = 2048;
 
@@ -13,7 +14,7 @@ var SHADOW_MAP_WIDTH = 2048,
         antialias: true
     });
     renderer.info.reset();
-    renderer.setClearColor(0x4a4a4a, 0.5);
+    renderer.setClearColor(0x4a4a4a);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true; //Shadow
@@ -48,6 +49,8 @@ var SHADOW_MAP_WIDTH = 2048,
     controls.maxPolarAngle = Math.PI / 2;
     camera.position.set(1.7, 1.2, 1.5);
 
+    var raycaster = new THREE.Raycaster(); // Needed for object intersection
+    var mouse = new THREE.Vector2(); //Needed for mouse coordinates
     //SCENE
     scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x4a4a4a, 1, 10);
@@ -80,26 +83,23 @@ var SHADOW_MAP_WIDTH = 2048,
     var dom = new THREEx.DomEvents(camera, renderer.domElement);
 
     var mss = (window.innerWidth / window.innerHeight) * .5;
-    console.log(mss); //console check
+    // console.log(mss); //console check
 
     var col = 16;
     var loader = new THREE.GLTFLoader();
     loader.load('/asse.gltf', function handle_load(gltf) {
 
         console.log(gltf);
-        bog = gltf.scene;
-        bog.children.material = new THREE.MeshStandardMaterial({
-            color: 0xff0000
-        });
-
-        bog.traverse(function (node) {
-
-            if (node instanceof THREE.Mesh) {
-                node.castShadow = true;
+        gltf.scene.traverse(function (child) {
+            if (child.isMesh) {
+                child.receiveShadow = true;
+                child.castShadow = true;
+                child.material.transparent = true;
+                child.material.opacity = 0.9;
             }
-
         });
-        scene.add(bog);
+        scene.add(gltf.scene);
+
     });
     var geom = new THREE.PlaneGeometry(2000, 2000, .01);
     var mat = new THREE.ShadowMaterial({
@@ -110,19 +110,17 @@ var SHADOW_MAP_WIDTH = 2048,
     shadowPlane.receiveShadow = true;
     scene.add(shadowPlane);
     shadowPlane.rotateX(-Math.PI / 2);
-    function clickTouch(){
+
+
+    //lable display on object
+    function adiv() {
         // console.log("clicked")
         element = document.createElement('div');
-        // element.setAttribute("src", "http://railmaniac.blogspot.com/2015/07/icf-detailed.html");
         element.innerHTML = 'Annotation of bogie in 3d floor.';
         element.className = 'three-div';
 
         //CSS Object
         div = new THREE.CSS3DObject(element);
-        // div.position.x = 0;
-        // div.position.y = .5;
-        // div.position.z = 0;
-        // div.position.z= bog.size.z;
         div.rotation.y = 45;
         div.position.y = bog.scale.y - .1;
         div.rotation.x = bog.position.z * 2;
@@ -131,16 +129,27 @@ var SHADOW_MAP_WIDTH = 2048,
 
         scene2.add(div);
     }
+
+    //lable remove on object
+    function rmdiv() {
+        scene2.remove(div)
+    }
+
     var domEvents = new THREEx.DomEvents(camera, renderer2.domElement)
-    domEvents.addEventListener(shadowPlane, 'click', function (event) {
-        clickTouch();
+    domEvents.addEventListener(bog, 'mouseover', function (event) {
+        adiv();
     }, false)
-    domEvents.addEventListener(shadowPlane, 'touchstart', function (event) {
-        clickTouch();
+
+    domEvents.addEventListener(bog, 'mouseout', function (event) {
+        rmdiv();
     }, false)
+
     //windows resize
+
+
     window.addEventListener('resize', onWindowResize, false);
 }
+
 
 render();
 animate();
@@ -152,15 +161,10 @@ function onWindowResize() {
 }
 
 function render() {
-    console.clear();
     renderer.render(scene, camera);
 }
 
-
-
-
 function animate() {
-
     requestAnimationFrame(animate);
     controls.update();
     renderer.render(scene, camera);
