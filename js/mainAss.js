@@ -136,50 +136,51 @@ var SHADOW_MAP_WIDTH = 2048,
     function rmdiv() {
         scene2.remove(div)
     }
-    var domEvents = new THREEx.DomEvents(camera, renderer2.domElement)
-    domEvents.addEventListener(bog, 'mouseover', function (event) {
-        adiv();
-    }, false)
+    // var domEvents = new THREEx.DomEvents(camera, renderer2.domElement)
+    // domEvents.addEventListener(bog, 'mouseover', function (event) {
+    //     adiv();
+    // }, false)
+    // bog.on('click',callback)
 
-    domEvents.addEventListener(bog, 'mouseout', function (event) {
-        rmdiv();
-    }, false)
+    // domEvents.addEventListener(bog, 'mouseout', function (event) {
+    //     rmdiv();
+    // }, false)
 
     //windows resizee
 
 
-    // //RayCaster
-    // // Onclick on bogie to add label
-    // window.addEventListener('click', onClickadd, true);
-    // // Onclick on bogie again to remove label
-    // window.addEventListener('click', onClickRmv, true);
+    //RayCaster
+    // Onclick on bogie to add label
+    window.addEventListener('click', onClickadd, true);
+    // Onclick on bogie again to remove label
+    window.addEventListener('click', onClickRmv, true);
     
-    // function onClickadd(event) {
+    function onClickadd(event) {
 
-    //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    //     raycaster.setFromCamera(mouse, camera);
-    //     intersects = raycaster.intersectObject(bog);
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+        intersects = raycaster.intersectObject(bog);
         
-    //     //here comes event
-    //     adiv();
-    //     console.log("Added");
+        //here comes event
+        adiv();
+        console.log("Added");
         
-    // }
+    }
 
 
-    // function onClickRmv(event) {
+    function onClickRmv(event) {
 
-    //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    //     raycaster.setFromCamera(mouse, camera);
-    //     intersects = raycaster.intersectObject(bog);
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+        intersects = raycaster.intersectObject(bog);
         
-    //     //here comes event
-    //     rmdiv();
-    //     console.log("Removed");
+        //here comes event
+        rmdiv();
+        console.log("Removed");
 
-    // }
+    }
 
 
 
