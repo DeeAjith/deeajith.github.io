@@ -136,7 +136,6 @@ var SHADOW_MAP_WIDTH = 2048,
     function rmdiv() {
         scene2.remove(div)
     }
-
     var domEvents = new THREEx.DomEvents(camera, renderer2.domElement)
     domEvents.addEventListener(bog, 'mouseover', function (event) {
         adiv();
