@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    cursor: url("Cursors/move.png"), auto;
 }
 
 html {
@@ -32,15 +33,6 @@ canvas {
     visibility: hidden;
 }
 
-.label {
-    color: #FFF;
-    font-family: monospace;
-    padding: 4px;
-    /* margin-bottom: 20px; */
-    background: linear-gradient(to right, rgb(0, 110, 255), rgb(255, 72, 0));
-    border-radius: 10px;
-    display: none;
-}
 
 ul {
     list-style-type: none;
@@ -48,7 +40,7 @@ ul {
     padding: 0;
     overflow: hidden;
     background-color: #333;
-    z-index: 10;
+    z-index: 50;
 }
 
 li {
@@ -71,19 +63,11 @@ li a {
 }
 
 li a:hover:not(.active) {
+    cursor: url("Cursors/cursor.png"), auto;
     background-color: #111;
+    border:.2px solid rgba(255, 196, 0, 0.562);
+    transition: border cubic-bezier(0.785, 0.135, 0.15, 0.86) .5s;
 }
-
 .active {
-    background: rgb(238, 61, 30);
-}
-
-
-.three-div{
-    background: rgb(255, 150, 31);
-    /* color: #111; */
-    color: white;
-    /* width: 1024px;
-    height:786px; */
-    border-radius: 5px;
+    background: rgb(30, 207, 238);
 }

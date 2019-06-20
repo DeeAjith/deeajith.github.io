@@ -1,0 +1,44 @@
+
+.three-div{
+    background: rgb(255, 150, 31);
+    /* color: #111; */
+    color: white;
+    /* width: 1024px;
+    height:786px; */
+    border-radius: 5px;
+}
+.inst{
+    cursor:url(Cursors/move.png),auto;
+    justify-self: auto;
+    z-index: 100;
+    
+}
+
+.inst h2{
+    border:2x solid rgba(226, 226, 226, 0);
+    float: unset !important;
+    font-family:  'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    font-size: 1em;
+    font-weight:normal;
+    width: 35%;
+    color: aliceblue;
+    background: #000000a1;
+    display: flex;
+    text-align: left;
+    border-bottom-right-radius: 50px;
+    position: absolute;
+}
+.inst:hover{
+    color:red;
+}
+
+div p{
+    font-family:  'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    font-size: 1em;
+    font-weight:normal;
+    width: 25%;
+    color: aliceblue;
+    background: #000000a1;
+    display: flex;
+    position: absolute;
+}

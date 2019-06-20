@@ -7,18 +7,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Webgl Bogie!</title>
     <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="info_style.css">
 </head>
 
 <body>
-    <ul>
-        <li><a href="index.html">Assesmbled View</a></li>
-        <li class="active"><a href="dis.html">Disassembled View</a></li>
-        <li><a href="index2.html">Module 4test</a></li>
-    </ul>
-
-        <div class="canv">
-            <canvas id="myCanvas"></canvas>
-        </div>
+        <ul id="nav">
+                <li><a href="index.html">Assesmbled View</a></li>
+                <li class="active"><a href="dis.html">Disassembled View</a></li>
+            </ul>
+            <div class="canv">
+                <canvas id="myCanvas"></canvas>
+            </div>
+            <div class="inst">
+                <h2>
+                    ZoomOut to view all parts<br>
+                    Press hold leftMouse<br> button and move to see Around.<br>
+                    <b>DoubleClick to Display information.</b>
+                </h2>
+                
+            </div>
 
         <script src="js/three.js"></script>
         <script src="js/OrbitControls.js"></script>
