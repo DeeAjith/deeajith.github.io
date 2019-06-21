@@ -8,9 +8,9 @@
     border-radius: 5px;
 }
 .inst{
-    cursor:url(Cursors/move.png),auto;
+    /* cursor:url(Cursors/move.png),auto; */
     justify-self: auto;
-    z-index: 100;
+    /* z-index: 100; */
     
 }
 
@@ -41,4 +41,7 @@ div p{
     background: #000000a1;
     display: flex;
     position: absolute;
+}
+.bb{
+    color: crimson;
 }

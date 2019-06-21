@@ -11,28 +11,32 @@
 </head>
 
 <body>
-        <ul id="nav">
-                <li><a href="index.html">Assesmbled View</a></li>
-                <li class="active"><a href="dis.html">Disassembled View</a></li>
-            </ul>
-            <div class="canv">
-                <canvas id="myCanvas"></canvas>
-            </div>
-            <div class="inst">
-                <h2>
-                    ZoomOut to view all parts<br>
-                    Press hold leftMouse<br> button and move to see Around.<br>
-                    <b>DoubleClick to Display information.</b>
-                </h2>
-                
-            </div>
+    <ul id="nav">
+        <li><a href="index.html">Assesmbled View</a></li>
+        <li class="active"><a href="dis.html">Disassembled View</a></li>
+    </ul>
+    <div class="canv">
+        <canvas id="myCanvas"></canvas>
+    </div>
+    <div class="inst">
+        <h2>
+            Scroll to ZoomIn, out.<br>
+            Press hold leftMouse<br> button and move to see Around.<br>
+            <b>DoubleClick on <span class="bb">BOX</span> to Display information.</b>
+        </h2>
 
-        <script src="js/three.js"></script>
-        <script src="js/OrbitControls.js"></script>
-        <script src="js/threex.domevents.js"></script>
-        <script src="js/CSS3DRenderer.js"></script>
-        <script src="js/GLTFLoader.js"></script>
-        <script src="js/mainDis.js"></script>
+    </div>
+
+    <script src="js/three.js"></script>
+    <script src="js/threex.domevents.js"></script>
+    <script src="js/CSS3DRenderer.js"></script>
+    <script src="js/PMREMCubeUVPacker.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/PMREMGenerator.js"></script>
+    <script src="js/EquirectangularToCubeGenerator.js"></script>
+    <script src="js/RGBELoader.js"></script>
+    <script src="js/GLTFLoader.js"></script>
+    <script src="js/mainDis.js"></script>
 
 </body>
 
