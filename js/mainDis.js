@@ -94,7 +94,7 @@ var SHADOW_MAP_WIDTH = 2048,
     scene.add(light2);
 
     var loader = new THREE.RGBELoader();
-    loader.load('hdr/hdri.hdr', function (texture) {
+    loader.load('../hdr/hdri.hdr', function (texture) {
         texture.encoding = THREE.RGBEEncoding;
         texture.minFilter = THREE.NearestFilter;
         texture.magFilter = THREE.NearestFilter;
@@ -109,8 +109,8 @@ var SHADOW_MAP_WIDTH = 2048,
         pmremCubeUVPacker.update(renderer);
         var envMap = pmremCubeUVPacker.CubeUVRenderTarget.texture;
         // model
-        var loader = new THREE.GLTFLoader();
-        loader.load('dis/frame.gltf', function (gltf) {
+        var loader = new THREE.GLTFLoader().setPath('../models/');
+        loader.load('frame.gltf', function (gltf) {
            frameip = gltf.scene;
            frameip.traverse(function (child) {
                 if (child.isMesh) {
@@ -121,7 +121,7 @@ var SHADOW_MAP_WIDTH = 2048,
 
             scene.add(frameip);
         });
-        loader.load('dis/wheel.gltf', function (gltf) {
+        loader.load('wheel.gltf', function (gltf) {
             wheelaxleip = gltf.scene;
             wheelaxleip.traverse(function (child) {
                  if (child.isMesh) {
@@ -132,7 +132,7 @@ var SHADOW_MAP_WIDTH = 2048,
  
              scene.add(wheelaxleip);
          });
-         loader.load('dis/bolster.gltf', function (gltf) {
+         loader.load('bolster.gltf', function (gltf) {
             supto = gltf.scene;
             supto.traverse(function (child) {
                  if (child.isMesh) {
@@ -143,7 +143,7 @@ var SHADOW_MAP_WIDTH = 2048,
  
              scene.add(supto);
          });
-         loader.load('dis/brakelever.gltf', function (gltf) {
+         loader.load('brakelever.gltf', function (gltf) {
             brakelever = gltf.scene;
             brakelever.traverse(function (child) {
                  if (child.isMesh) {
@@ -154,7 +154,7 @@ var SHADOW_MAP_WIDTH = 2048,
  
              scene.add(brakelever);
          });
-         loader.load('dis/oil.gltf', function (gltf) {
+         loader.load('oil.gltf', function (gltf) {
             oilip = gltf.scene;
             oilip.traverse(function (child) {
                  if (child.isMesh) {
@@ -165,7 +165,7 @@ var SHADOW_MAP_WIDTH = 2048,
  
              scene.add(oilip);
          });
-         loader.load('dis/bearing.gltf', function (gltf) {
+         loader.load('bearing.gltf', function (gltf) {
             bearing = gltf.scene;
             bearing.traverse(function (child) {
                  if (child.isMesh) {
@@ -176,7 +176,7 @@ var SHADOW_MAP_WIDTH = 2048,
  
              scene.add(bearing);
          });
-         loader.load('dis/airbrake.gltf', function (gltf) {
+         loader.load('airbrake.gltf', function (gltf) {
             airbrake = gltf.scene;
             airbrake.traverse(function (child) {
                  if (child.isMesh) {
@@ -241,11 +241,12 @@ function onClickadd(event) {
         controls.enableZoom = true;
         controls.enablePan = true;
         frameip.position.set(2.8,1.2,1);
+        frameip.castShadow = false;
        
         // camera.rotation.set(0,0,0);
         scene.remove(oilip,supto,wheelaxleip,brakelever,bearing,airbrake);
         element = document.createElement('iframe');
-        element.setAttribute("src", "/asse-info.html");
+        element.setAttribute("src", "../pages/asse-info.html");
         // element.innerHTML = '';
         element.className = 'three-div';
         //CSS Object
@@ -256,7 +257,6 @@ function onClickadd(event) {
         divFrame.scale.y = .008;
         console.log(camera);
         scene2.add(divFrame);
-        rotateAnimate().duration=0.5;
     }
     
 }
@@ -282,19 +282,9 @@ function onClickrem(event) {
 function render() {
     renderer.render(scene, camera);
 }
-console.log(controls);
-function rotateAnimate(){
-    requestAnimationFrame(rotateAnimate);
-    frameip.rotation.y+=.005;
-    frameip.rotation.x+=.005;
-    frameip.rotation.z+=.005;
-    renderer.render(scene, camera);
-}
 function animate() {
-    // console.log("Mouse-X:"+mouse.x+"Mouse-Y:"+mouse.y);
     requestAnimationFrame(animate);
     controls.update();
     renderer.render(scene, camera);
-    // console.log(camera);
     renderer2.render(scene2, camera);
 }

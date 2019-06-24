@@ -79,7 +79,7 @@ var SHADOW_MAP_WIDTH = 2048,
     scene.add(light2);
 
     var loader = new THREE.RGBELoader();
-    loader.load('hdr/hdr.hdr', function (texture) {
+    loader.load('../hdr/hdr.hdr', function (texture) {
         texture.encoding = THREE.RGBEEncoding;
         texture.minFilter = THREE.NearestFilter;
         texture.magFilter = THREE.NearestFilter;
@@ -94,7 +94,7 @@ var SHADOW_MAP_WIDTH = 2048,
         pmremCubeUVPacker.update(renderer);
         var envMap = pmremCubeUVPacker.CubeUVRenderTarget.texture;
         // model
-        var loader = new THREE.GLTFLoader();
+        var loader = new THREE.GLTFLoader().setPath('../models/');
         loader.load('asse.gltf', function (gltf) {
            mesh = gltf.scene;
            mesh.traverse(function (child) {
@@ -111,9 +111,6 @@ var SHADOW_MAP_WIDTH = 2048,
         scene.background = cubeGenerator.renderTarget;
 
     });
-
-
-
 
     var geom = new THREE.PlaneGeometry(2000, 2000, .01);
     var mat = new THREE.ShadowMaterial({
@@ -157,7 +154,7 @@ function onClickadd(event) {
     //here comes event
     if (intersects.length > 0) {
         element = document.createElement('iframe');
-        element.setAttribute("src", "/asse-info.html");
+        element.setAttribute("src", "../pages/asse-info.html");
         // element.innerHTML = 'Annotation of bogie in 3d floor.';
         element.className = 'three-div';
         //CSS Object
