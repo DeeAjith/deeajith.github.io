@@ -24,7 +24,7 @@
     width: 35%;
     color: aliceblue;
     background: #00000091;
-    display: flex;
+    display: inline-flex;
     text-align: left;
     border-bottom-right-radius: 50px;
     position: absolute;
@@ -46,7 +46,6 @@ div p {
     width: 25%;
     color: aliceblue;
     background: #000000a1;
-    display: flex;
     position: absolute;
 }
 
@@ -55,5 +54,4 @@ div p {
 }
 h2{
     font-family:'Times New Roman', Times, serif;
-     
 }
