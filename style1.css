@@ -2,7 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    cursor: url(Cursors/cursor.png),auto;
+    /* cursor: url(Cursors/cursor.png),auto; */
 }
 
 html {
@@ -34,6 +34,7 @@ canvas {
 
 
 ul {
+    cursor: url("Cursors/cursor.png"), auto;
     list-style-type: none;
     margin: 0;
     padding: 0;

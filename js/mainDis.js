@@ -1,8 +1,9 @@
 "use strict";
 var renderer, renderer2,
-    scene, scene2, bog, element, div, intersects,
-    camera,
+    scene, scene2, bog, element, intersects,point,camera,
     myCanvas = document.getElementById("myCanvas");
+var frameip,oilip,supto,wheelaxleip,brakelever,bearing,airbrake;
+var divFrame;
 var SHADOW_MAP_WIDTH = 2048,
     SHADOW_MAP_HEIGHT = 2048;
 
@@ -23,7 +24,7 @@ var SHADOW_MAP_WIDTH = 2048,
     renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.gammaInput = true;
     renderer.gammaOutput = true;
-    renderer.gammaFactor = 1.5;
+    renderer.gammaFactor = 2;
     renderer.physicallyCorrectLights = true;
     document.body.appendChild(renderer.domElement);
 
@@ -42,14 +43,15 @@ var SHADOW_MAP_WIDTH = 2048,
         MIDDLE: THREE.MOUSE.MIDDLE,
         RIGHT: THREE.MOUSE.RIGHT
     }
-    controls.autoRotate = false;
-    controls.autoRotateSpeed = 0.5;
-    controls.enableZoom = true;
+    controls.enableRotate = false;
+    controls.enablePan = false;
+    controls.enableZoom = false;
     controls.enableDamping = true;
-    controls.dampingFactor = 0.1;
-    controls.rotateSpeed = 0.08;
-    controls.maxPolarAngle = Math.PI / 3;
-    camera.position.set(1.7, 2, 2);
+    controls.autoRotateSpeed = 0.5;
+    controls.dampingFactor = 0.06;
+    controls.rotateSpeed = 0.05;
+    controls.maxPolarAngle = Math.PI / 2.2;
+    camera.position.set(0, 4, 0);
 
     var raycaster = new THREE.Raycaster(); // Needed for object intersection
     var mouse = new THREE.Vector3(); //Needed for mouse coordinates
@@ -76,7 +78,7 @@ var SHADOW_MAP_WIDTH = 2048,
     var intensity = 1;
     var light1 = new THREE.HemisphereLight(skyColor, groundColor, intensity);
     scene.add(light1);
-    var color = 0xffffff;
+    var color = 0x4a4a4a;
     var intensity = 2;
     var light2 = new THREE.DirectionalLight(color, intensity);
     light2.position.set(5, 10, 2);
@@ -108,135 +110,91 @@ var SHADOW_MAP_WIDTH = 2048,
         var envMap = pmremCubeUVPacker.CubeUVRenderTarget.texture;
         // model
         var loader = new THREE.GLTFLoader();
-        loader.load('dis/wheel_axel.gltf', function (gltf) {
-            var wheel = gltf.scene;
-            wheel.traverse(function (child) {
+        loader.load('/dis/frame.gltf', function (gltf) {
+           frameip = gltf.scene;
+           frameip.traverse(function (child) {
                 if (child.isMesh) {
-                    child.material.envMap = envMap;
+                    // child.material.envMap = envMap;
                     child.castShadow = true;
                 }
             });
 
-            scene.add(wheel);
+            scene.add(frameip);
         });
-        loader.load('dis/frame.gltf', function (gltf) {
-            var frame = gltf.scene;
-            frame.traverse(function (child) {
-                if (child.isMesh) {
-                    child.material.envMap = envMap;
-                    child.castShadow = true;
-                }
-            });
-
-            scene.add(frame);
-        });
-        loader.load('dis/abc.gltf', function (gltf) {
-            var abc = gltf.scene;
-            abc.traverse(function (child) {
-                if (child.isMesh) {
-                    child.material.envMap = envMap;
-                    child.castShadow = true;
-                }
-            });
-
-            scene.add(abc);
-        });
-        loader.load('dis/bea.gltf', function (gltf) {
-            var bea = gltf.scene;
-            bea.traverse(function (child) {
-                if (child.isMesh) {
-                    child.material.envMap = envMap;
-                    child.castShadow = true;
-                }
-            });
-
-            scene.add(bea);
-        });
-        loader.load('dis/beac.gltf', function (gltf) {
-            var beac = gltf.scene;
-            beac.traverse(function (child) {
-                if (child.isMesh) {
-                    child.material.envMap = envMap;
-                    child.castShadow = true;
-                }
-            });
-
-            scene.add(beac);
-        });
-        loader.load('dis/bol.gltf', function (gltf) {
-            var bol = gltf.scene;
-            bol.traverse(function (child) {
-                if (child.isMesh) {
-                    child.material.envMap = envMap;
-                    child.castShadow = true;
-                }
-            });
-
-            scene.add(bol);
-        });
-        loader.load('dis/brod.gltf', function (gltf) {
-            var brod = gltf.scene;
-            brod.traverse(function (child) {
-                if (child.isMesh) {
-                    child.material.envMap = envMap;
-                    child.castShadow = true;
-                }
-            });
-
-            scene.add(brod);
-        });
-        loader.load('dis/oil_tank.gltf', function (gltf) {
-            var oil_tank = gltf.scene;
-            oil_tank.traverse(function (child) {
-                if (child.isMesh) {
-                    child.material.envMap = envMap;
-                    child.castShadow = true;
-                }
-            });
-
-            scene.add(oil_tank);
-        });
-        loader.load('dis/spm.gltf', function (gltf) {
-            var spm = gltf.scene;
-            spm.traverse(function (child) {
-                if (child.isMesh) {
-                    child.material.envMap = envMap;
-                    child.castShadow = true;
-                }
-            });
-
-            scene.add(spm);
-        });
-        loader.load('dis/supto.gltf', function (gltf) {
-            var supto = gltf.scene;
+        loader.load('/dis/wheel.gltf', function (gltf) {
+            wheelaxleip = gltf.scene;
+            wheelaxleip.traverse(function (child) {
+                 if (child.isMesh) {
+                     child.material.envMap = envMap;
+                     child.castShadow = true;
+                 }
+             });
+ 
+             scene.add(wheelaxleip);
+         });
+         loader.load('/dis/bolster.gltf', function (gltf) {
+            supto = gltf.scene;
             supto.traverse(function (child) {
-                if (child.isMesh) {
-                    child.material.envMap = envMap;
-                    child.castShadow = true;
-                }
-            });
-
-            scene.add(supto);
-        });
-
+                 if (child.isMesh) {
+                     child.material.envMap = envMap;
+                     child.castShadow = true;
+                 }
+             });
+ 
+             scene.add(supto);
+         });
+         loader.load('/dis/brakelever.gltf', function (gltf) {
+            brakelever = gltf.scene;
+            brakelever.traverse(function (child) {
+                 if (child.isMesh) {
+                     child.material.envMap = envMap;
+                     child.castShadow = true;
+                 }
+             });
+ 
+             scene.add(brakelever);
+         });
+         loader.load('/dis/oil.gltf', function (gltf) {
+            oilip = gltf.scene;
+            oilip.traverse(function (child) {
+                 if (child.isMesh) {
+                     child.material.envMap = envMap;
+                     child.castShadow = true;
+                 }
+             });
+ 
+             scene.add(oilip);
+         });
+         loader.load('/dis/bearing.gltf', function (gltf) {
+            bearing = gltf.scene;
+            bearing.traverse(function (child) {
+                 if (child.isMesh) {
+                     child.material.envMap = envMap;
+                     child.castShadow = true;
+                 }
+             });
+ 
+             scene.add(bearing);
+         });
+         loader.load('/dis/airbrake.gltf', function (gltf) {
+            airbrake = gltf.scene;
+            airbrake.traverse(function (child) {
+                 if (child.isMesh) {
+                     child.material.envMap = envMap;
+                     child.castShadow = true;
+                 }
+             });
+ 
+             scene.add(airbrake);
+         });
         pmremGenerator.dispose();
         pmremCubeUVPacker.dispose();
-        scene.background = 0x4a4a4a.renderTarget;
+        scene.background = cubeGenerator.renderTarget;
 
     });
 
-    //Button
-    var button = new THREE.BoxGeometry(.2, .2, 1 - .2);
-    var material = new THREE.MeshLambertMaterial({
-        color: 0xfac000
-    });
-    var addButton = new THREE.Mesh(button, material);
-    scene.add(addButton);
-    addButton.castShadow = true;
-    addButton.recieveShadow = true;
-    addButton.position.set(.8, 0.1, 0);
-
-
+    
+    
     var geom = new THREE.PlaneGeometry(2000, 2000, .01);
     var mat = new THREE.ShadowMaterial({
         // color: 0x4a4a4a,
@@ -246,14 +204,14 @@ var SHADOW_MAP_WIDTH = 2048,
     shadowPlane.receiveShadow = true;
     scene.add(shadowPlane);
     shadowPlane.rotateX(-Math.PI / 2);
-
-
-    // //RayCaster
+    
+    
+    //RayCaster
     // Onclick on bogie to add label
-    document.addEventListener('dblclick', onClickadd, true);
+    document.addEventListener('click', onClickadd, true);
     //remove
     document.addEventListener('mouseup', onClickrem, true);
-
+    
     //resize window event
     window.addEventListener('resize', onWindowResize, false);
 }
@@ -268,48 +226,75 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
 }
 
+// var frameip,oilip,supto,wheelaxleip,brakelever,bearing,airbrake;
 function onClickadd(event) {
-
+    
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
-    intersects = raycaster.intersectObject(addButton, true);
-
+    intersects = raycaster.intersectObject(frameip, true);
+    
     //here comes event
-    element = document.createElement('iframe');
-    element.setAttribute("src", "/asse-info.html");
-    // element.innerHTML = 'Annotation of bogie in 3d floor.';
-    element.className = 'three-div';
-
-    //CSS Object
-    div = new THREE.CSS3DObject(element);
-
-    div.scale.x = .009;
-    div.scale.y = .008;
-
-    scene2.add(div);
-    console.log("Added Lable");
+    if (intersects.length > 0) {
+        //controls
+        controls.enableRotate=true;
+        controls.enableZoom = true;
+        controls.enablePan = true;
+        frameip.position.set(2.8,1.2,1);
+       
+        // camera.rotation.set(0,0,0);
+        scene.remove(oilip,supto,wheelaxleip,brakelever,bearing,airbrake);
+        element = document.createElement('iframe');
+        element.setAttribute("src", "/asse-info.html");
+        // element.innerHTML = '';
+        element.className = 'three-div';
+        //CSS Object
+        divFrame = new THREE.CSS3DObject(element);
+        divFrame.rotation.x=Math.PI/-2;//-90deg;
+        divFrame.position.set(-1,1.5,0);
+        divFrame.scale.x = .009;
+        divFrame.scale.y = .008;
+        console.log(camera);
+        scene2.add(divFrame);
+        rotateAnimate().duration=0.5;
+    }
+    
 }
-
 function onClickrem(event) {
-
+    
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
-    intersects = raycaster.intersectObject(addButton, true);
-
-    //here comes event
-    scene2.remove(div);
+    intersects = raycaster.intersectObject(frameip, true);
+    if (intersects.length > 0) {
+        //here comes event
+        controls.enableRotate=false;
+        controls.enableZoom = false;
+        controls.enablePan = false;
+        frameip.position.set(0,0,0);
+        scene2.remove(divFrame);//removing div tag
+        scene.add(oilip,supto,wheelaxleip,brakelever,bearing,airbrake);
+        camera.rotation.set(0,0,0);
+        camera.position.set(0,4,0);
+    }
 }
 
 function render() {
     renderer.render(scene, camera);
 }
 console.log(controls);
-
+function rotateAnimate(){
+    requestAnimationFrame(rotateAnimate);
+    frameip.rotation.y+=.005;
+    frameip.rotation.x+=.005;
+    frameip.rotation.z+=.005;
+    renderer.render(scene, camera);
+}
 function animate() {
+    // console.log("Mouse-X:"+mouse.x+"Mouse-Y:"+mouse.y);
     requestAnimationFrame(animate);
     controls.update();
     renderer.render(scene, camera);
+    // console.log(camera);
     renderer2.render(scene2, camera);
 }
