@@ -110,7 +110,7 @@ var SHADOW_MAP_WIDTH = 2048,
         var envMap = pmremCubeUVPacker.CubeUVRenderTarget.texture;
         // model
         var loader = new THREE.GLTFLoader();
-        loader.load('Dis/frame.gltf', function (gltf) {
+        loader.load('dis/frame.gltf', function (gltf) {
            frameip = gltf.scene;
            frameip.traverse(function (child) {
                 if (child.isMesh) {
@@ -121,7 +121,7 @@ var SHADOW_MAP_WIDTH = 2048,
 
             scene.add(frameip);
         });
-        loader.load('Dis/wheel.gltf', function (gltf) {
+        loader.load('dis/wheel.gltf', function (gltf) {
             wheelaxleip = gltf.scene;
             wheelaxleip.traverse(function (child) {
                  if (child.isMesh) {
@@ -132,7 +132,7 @@ var SHADOW_MAP_WIDTH = 2048,
  
              scene.add(wheelaxleip);
          });
-         loader.load('Dis/bolster.gltf', function (gltf) {
+         loader.load('dis/bolster.gltf', function (gltf) {
             supto = gltf.scene;
             supto.traverse(function (child) {
                  if (child.isMesh) {
@@ -143,7 +143,7 @@ var SHADOW_MAP_WIDTH = 2048,
  
              scene.add(supto);
          });
-         loader.load('Dis/brakelever.gltf', function (gltf) {
+         loader.load('dis/brakelever.gltf', function (gltf) {
             brakelever = gltf.scene;
             brakelever.traverse(function (child) {
                  if (child.isMesh) {
@@ -154,7 +154,7 @@ var SHADOW_MAP_WIDTH = 2048,
  
              scene.add(brakelever);
          });
-         loader.load('Dis/oil.gltf', function (gltf) {
+         loader.load('dis/oil.gltf', function (gltf) {
             oilip = gltf.scene;
             oilip.traverse(function (child) {
                  if (child.isMesh) {
@@ -165,7 +165,7 @@ var SHADOW_MAP_WIDTH = 2048,
  
              scene.add(oilip);
          });
-         loader.load('Dis/bearing.gltf', function (gltf) {
+         loader.load('dis/bearing.gltf', function (gltf) {
             bearing = gltf.scene;
             bearing.traverse(function (child) {
                  if (child.isMesh) {
@@ -176,7 +176,7 @@ var SHADOW_MAP_WIDTH = 2048,
  
              scene.add(bearing);
          });
-         loader.load('Dis/airbrake.gltf', function (gltf) {
+         loader.load('dis/airbrake.gltf', function (gltf) {
             airbrake = gltf.scene;
             airbrake.traverse(function (child) {
                  if (child.isMesh) {
