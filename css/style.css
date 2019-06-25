@@ -64,6 +64,7 @@ li a:hover:not(.active) {
     background-color: #111;
     border:.2px solid rgba(255, 196, 0, 0.562);
     transition: border cubic-bezier(0.785, 0.135, 0.15, 0.86) .5s;
+    z-index:10;
 }
 .active {
     background: rgb(30, 207, 238);
