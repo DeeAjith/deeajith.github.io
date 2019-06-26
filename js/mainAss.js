@@ -154,7 +154,7 @@ function onClickadd(event) {
     //here comes event
     if (intersects.length > 0) {
         element = document.createElement('iframe');
-        element.setAttribute("src", "../pages/asse-info.html");
+        element.setAttribute("src", "../pages/Ass.html");
         // element.innerHTML = 'Annotation of bogie in 3d floor.';
         element.className = 'three-div';
         //CSS Object

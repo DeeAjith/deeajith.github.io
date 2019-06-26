@@ -38,15 +38,20 @@ ul {
     overflow: hidden;
     background-color: #333;
     z-index: 10;
+    cursor: url("../cursors/cursor.png"), auto;
+
 }
 
 li {
     float: left;
+    
 }
 
 li:last-child {
+    cursor: url("../cursors/cursor.png"), auto;
     border-right: none;
     border-right: 1px solid #bbb;
+    
 }
 
 li a {

@@ -3,7 +3,7 @@ var renderer, renderer2,
     scene, scene2, bog, element, intersects,point,camera,
     myCanvas = document.getElementById("myCanvas");
 var frameip,oilip,supto,wheelaxleip,brakelever,bearing,airbrake;
-var divFrame;
+var divFrame,divOil,divSupto,divWheel,divBrake,divBearing,divAirB;
 var SHADOW_MAP_WIDTH = 2048,
     SHADOW_MAP_HEIGHT = 2048;
 
@@ -24,7 +24,7 @@ var SHADOW_MAP_WIDTH = 2048,
     renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.gammaInput = true;
     renderer.gammaOutput = true;
-    renderer.gammaFactor = 2;
+    renderer.gammaFactor = 2.05;
     renderer.physicallyCorrectLights = true;
     document.body.appendChild(renderer.domElement);
 
@@ -57,25 +57,12 @@ var SHADOW_MAP_WIDTH = 2048,
     var mouse = new THREE.Vector3(); //Needed for mouse coordinates
     //SCENE
     scene = new THREE.Scene();
-    // //cubemap
-    // var path = 'hdr/';
-    // var format = '.jpg';
-    // var urls = [
-    //     path + 'posx' + format, path + 'negx' + format,
-    //     path + 'posy' + format, path + 'negy' + format,
-    //     path + 'posz' + format, path + 'negz' + format
-    // ];
-    // var reflectionCube = new THREE.CubeTextureLoader().load(urls);
-    // reflectionCube.format = THREE.RGBAFormat;
-
-    // scene.background = reflectionCube;
-    // scene.background = 0x5a5a5a;
     //Scene2
     scene2 = new THREE.Scene();
     //LIGHTS
     var skyColor = 0xB1E1FF; // light blue
     var groundColor = 0xB97A20; // brownish orange
-    var intensity = 1;
+    var intensity = 5;
     var light1 = new THREE.HemisphereLight(skyColor, groundColor, intensity);
     scene.add(light1);
     var color = 0x4a4a4a;
@@ -94,7 +81,7 @@ var SHADOW_MAP_WIDTH = 2048,
     scene.add(light2);
 
     var loader = new THREE.RGBELoader();
-    loader.load('../hdr/hdri.hdr', function (texture) {
+    loader.load('../hdr/hdrsky.hdr', function (texture) {
         texture.encoding = THREE.RGBEEncoding;
         texture.minFilter = THREE.NearestFilter;
         texture.magFilter = THREE.NearestFilter;
@@ -142,6 +129,7 @@ var SHADOW_MAP_WIDTH = 2048,
              });
  
              scene.add(supto);
+             supto.position.z=1;
          });
          loader.load('brakelever.gltf', function (gltf) {
             brakelever = gltf.scene;
@@ -164,6 +152,7 @@ var SHADOW_MAP_WIDTH = 2048,
              });
  
              scene.add(oilip);
+            
          });
          loader.load('bearing.gltf', function (gltf) {
             bearing = gltf.scene;
@@ -208,7 +197,7 @@ var SHADOW_MAP_WIDTH = 2048,
     
     //RayCaster
     // Onclick on bogie to add label
-    document.addEventListener('click', onClickadd, true);
+    document.addEventListener('dblclick', onClickadd, true);
     //remove
     document.addEventListener('mouseup', onClickrem, true);
     
@@ -235,18 +224,16 @@ function onClickadd(event) {
     intersects = raycaster.intersectObject(frameip, true);
     
     //here comes event
+    camera.position.set(0,4,0);
     if (intersects.length > 0) {
-        //controls
-        controls.enableRotate=true;
-        controls.enableZoom = true;
-        controls.enablePan = true;
+        
         frameip.position.set(2.8,1.2,1);
         frameip.castShadow = false;
-       
-        // camera.rotation.set(0,0,0);
         scene.remove(oilip,supto,wheelaxleip,brakelever,bearing,airbrake);
+
+        //Info' tag  after onClick
         element = document.createElement('iframe');
-        element.setAttribute("src", "../pages/asse-info.html");
+        element.setAttribute("src", "../pages/frame.html");
         // element.innerHTML = '';
         element.className = 'three-div';
         //CSS Object
@@ -259,14 +246,134 @@ function onClickadd(event) {
         scene2.add(divFrame);
     }
     
+    intersects = raycaster.intersectObject(bearing, true);
+    if (intersects.length > 0) {
+        
+        bearing.position.set(.8,1.2,-1.2);
+        bearing.castShadow = false;
+        
+        //Info' tag  after onClick
+        element = document.createElement('iframe');
+        element.setAttribute("src", "../pages/bearing.html");
+        // element.innerHTML = 'Roller bearings are used on the ICF coaches. These bearings are press fitted on the axle journal by heating the bearings at a temperature of 80 to 100 °C in an induction furnace. Before fitting the roller bearing, an axle collar is press fitted. The collar ensures that the bearing does not move towards the center of the axle. After pressing the collar, a rear cover for the axle box is fitted. The rear cover has two main grooves. In one of the grooves, a nitrile rubber sealing ring is placed. ';
+        element.className = 'three-div';
+        //CSS Object
+        divBearing = new THREE.CSS3DObject(element);
+        divBearing.rotation.x=Math.PI/-2;//-90deg;
+        divBearing.position.set(-1,1.2,0);
+        divBearing.scale.x = .009;
+        divBearing.scale.y = .008;
+        scene.remove(oilip,supto,wheelaxleip,brakelever,frameip,airbrake);
+        scene2.add(divBearing);
+    }
+    intersects = raycaster.intersectObject(supto, true);
+    if (intersects.length > 0) {
+        
+        supto.position.set(-.8,1.2,.85);
+        supto.castShadow = false;
+        
+        //Info' tag  after onClick
+        element = document.createElement('iframe');
+        element.setAttribute("src", "../pages/bolster.html");
+        // element.innerHTML = 'Roller bearings are used on the ICF coaches. These bearings are press fitted on the axle journal by heating the bearings at a temperature of 80 to 100 °C in an induction furnace. Before fitting the roller bearing, an axle collar is press fitted. The collar ensures that the bearing does not move towards the center of the axle. After pressing the collar, a rear cover for the axle box is fitted. The rear cover has two main grooves. In one of the grooves, a nitrile rubber sealing ring is placed. ';
+        element.className = 'three-div';
+        //CSS Object
+        divSupto = new THREE.CSS3DObject(element);
+        divSupto.rotation.x=Math.PI/-2;//-90deg;
+        divSupto.position.set(-1,1.2,0);
+        divSupto.scale.x = .009;
+        divSupto.scale.y = .008;
+        scene.remove(oilip,bearing,wheelaxleip,brakelever,frameip,airbrake);
+        scene2.add(divSupto);
+    }
+    intersects = raycaster.intersectObject(oilip, true);
+    if (intersects.length > 0) {
+        
+        oilip.position.set(.8,1.2,.85);
+        oilip.castShadow = false;
+        
+        //Info' tag  after onClick
+        element = document.createElement('iframe');
+        element.setAttribute("src", "../pages/oiltank.html");
+        // element.innerHTML = 'Roller bearings are used on the ICF coaches. These bearings are press fitted on the axle journal by heating the bearings at a temperature of 80 to 100 °C in an induction furnace. Before fitting the roller bearing, an axle collar is press fitted. The collar ensures that the bearing does not move towards the center of the axle. After pressing the collar, a rear cover for the axle box is fitted. The rear cover has two main grooves. In one of the grooves, a nitrile rubber sealing ring is placed. ';
+        element.className = 'three-div';
+        //CSS Object
+        divOil = new THREE.CSS3DObject(element);
+        divOil.rotation.x=Math.PI/-2;//-90deg;
+        divOil.position.set(-1,1.2,0);
+        divOil.scale.x = .009;
+        divOil.scale.y = .008;
+        scene.remove(supto,bearing,wheelaxleip,brakelever,frameip,airbrake);
+        scene2.add(divOil);
+    }
+    intersects = raycaster.intersectObject(airbrake, true);
+    if (intersects.length > 0) {
+        
+        airbrake.position.set(0,1.2,.85);
+        airbrake.castShadow = false;
+        //Info' tag  after onClick
+        element = document.createElement('iframe');
+        element.setAttribute("src", "../pages/airbrake.html");
+        // element.innerHTML = 'Roller bearings are used on the ICF coaches. These bearings are press fitted on the axle journal by heating the bearings at a temperature of 80 to 100 °C in an induction furnace. Before fitting the roller bearing, an axle collar is press fitted. The collar ensures that the bearing does not move towards the center of the axle. After pressing the collar, a rear cover for the axle box is fitted. The rear cover has two main grooves. In one of the grooves, a nitrile rubber sealing ring is placed. ';
+        element.className = 'three-div';
+        //CSS Object
+        divAirB = new THREE.CSS3DObject(element);
+        divAirB.rotation.x=Math.PI/-2;//-90deg;
+        divAirB.position.set(-1,1.2,0);
+        divAirB.scale.x = .009;
+        divAirB.scale.y = .008;
+        scene.remove(supto,bearing,wheelaxleip,brakelever,frameip,oilip);
+        scene2.add(divAirB);
+    }
+    intersects = raycaster.intersectObject(wheelaxleip, true);
+    if (intersects.length > 0) {
+        
+        wheelaxleip.position.set(1.8,1.2,.7);
+        wheelaxleip.castShadow = false;
+        //Info' tag  after onClick
+        element = document.createElement('iframe');
+        element.setAttribute("src", "../pages/wheelaxle.html");
+        // element.innerHTML = 'Roller bearings are used on the ICF coaches. These bearings are press fitted on the axle journal by heating the bearings at a temperature of 80 to 100 °C in an induction furnace. Before fitting the roller bearing, an axle collar is press fitted. The collar ensures that the bearing does not move towards the center of the axle. After pressing the collar, a rear cover for the axle box is fitted. The rear cover has two main grooves. In one of the grooves, a nitrile rubber sealing ring is placed. ';
+        element.className = 'three-div';
+        //CSS Object
+        divWheel = new THREE.CSS3DObject(element);
+        divWheel.rotation.x=Math.PI/-2;//-90deg;
+        divWheel.position.set(-1,1.2,0);
+        divWheel.scale.x = .009;
+        divWheel.scale.y = .008;
+        scene.remove(supto,bearing,airbrake,brakelever,frameip,oilip);
+        scene2.add(divWheel);
+    }
+    intersects = raycaster.intersectObject(brakelever, true);
+    if (intersects.length > 0) {
+        
+        brakelever.position.set(2.5,1.2,-1);
+        brakelever.castShadow = false;
+        //Info' tag  after onClick
+        element = document.createElement('iframe');
+        element.setAttribute("src", "../pages/brakelever.html");
+        // element.innerHTML = 'Roller bearings are used on the ICF coaches. These bearings are press fitted on the axle journal by heating the bearings at a temperature of 80 to 100 °C in an induction furnace. Before fitting the roller bearing, an axle collar is press fitted. The collar ensures that the bearing does not move towards the center of the axle. After pressing the collar, a rear cover for the axle box is fitted. The rear cover has two main grooves. In one of the grooves, a nitrile rubber sealing ring is placed. ';
+        element.className = 'three-div';
+        //CSS Object
+        divBrake = new THREE.CSS3DObject(element);
+        divBrake.rotation.x=Math.PI/-2;//-90deg;
+        divBrake.position.set(-1,1.2,0);
+        divBrake.scale.x = .009;
+        divBrake.scale.y = .008;
+        scene.remove(supto,bearing,airbrake,wheelaxleip,frameip,oilip);
+        scene2.add(divBrake);
+    }
+    
 }
 function onClickrem(event) {
     
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
+
     intersects = raycaster.intersectObject(frameip, true);
     if (intersects.length > 0) {
+        camera.position.set(0,4,0);
         //here comes event
         controls.enableRotate=false;
         controls.enableZoom = false;
@@ -274,8 +381,92 @@ function onClickrem(event) {
         frameip.position.set(0,0,0);
         scene2.remove(divFrame);//removing div tag
         scene.add(oilip,supto,wheelaxleip,brakelever,bearing,airbrake);
-        camera.rotation.set(0,0,0);
+    }
+    intersects = raycaster.intersectObject(wheelaxleip, true);
+    if (intersects.length > 0) {
         camera.position.set(0,4,0);
+        //here comes event
+        controls.enableRotate=false;
+        controls.enableZoom = false;
+        controls.enablePan = false;
+        wheelaxleip.position.set(0,0,0);
+        scene2.remove(divWheel);//removing div tag
+        scene.add(oilip,supto,frameip,brakelever,bearing,airbrake);
+    }
+    intersects = raycaster.intersectObject(bearing, true);
+    if (intersects.length > 0) {
+        // camera.rotation.set(0,0,0);
+        camera.position.set(0,4,0);
+        //here comes event
+        controls.enableRotate=false;
+        controls.enableZoom = false;
+        controls.enablePan = false;
+        bearing.position.set(0,0,0);
+        scene2.remove(divBearing);//removing div tag
+        scene.add(oilip,supto,wheelaxleip,brakelever,frameip,airbrake);
+    }
+    intersects = raycaster.intersectObject(supto, true);
+    if (intersects.length > 0) {
+        // camera.rotation.set(0,0,0);
+        camera.position.set(0,4,0);
+        //here comes event
+        controls.enableRotate=false;
+        controls.enableZoom = false;
+        controls.enablePan = false;
+        supto.position.set(0,0,0);
+        scene2.remove(divSupto);//removing div tag
+        scene.add(oilip,bearing,wheelaxleip,brakelever,frameip,airbrake);
+    }
+    intersects = raycaster.intersectObject(airbrake, true);
+    if (intersects.length > 0) {
+        // camera.rotation.set(0,0,0);
+        camera.position.set(0,4,0);
+        //here comes event
+        controls.enableRotate=false;
+        controls.enableZoom = false;
+        controls.enablePan = false;
+        airbrake.position.set(0,0,0);
+        scene2.remove(divAirB);//removing div tag
+        scene.add(oilip,bearing,wheelaxleip,brakelever,frameip,supto);
+    }
+    intersects = raycaster.intersectObject(wheelaxleip, true);
+    if (intersects.length > 0) {
+        // camera.rotation.set(0,0,0);
+        camera.position.set(0,4,0);
+        //here comes event
+        controls.enableRotate=false;
+        controls.enableZoom = false;
+        controls.enablePan = false;
+        wheelaxleip.position.set(0,0,0);
+        scene2.remove(divWheel);//removing div tag
+        scene.add(oilip,bearing,airbrake,brakelever,frameip,supto);
+        
+    }
+    intersects = raycaster.intersectObject(brakelever, true);
+    if (intersects.length > 0) {
+        // camera.rotation.set(0,0,0);
+        camera.position.set(0,4,0);
+        //here comes event
+        controls.enableRotate=false;
+        controls.enableZoom = false;
+        controls.enablePan = false;
+        brakelever.position.set(0,0,0);
+        scene2.remove(divBrake);//removing div tag
+        scene.add(oilip,bearing,airbrake,wheelaxleip,frameip,supto);
+        
+    }
+    intersects = raycaster.intersectObject(oilip, true);
+    if (intersects.length > 0) {
+        // camera.rotation.set(0,0,0);
+        camera.position.set(0,4,0);
+        //here comes event
+        controls.enableRotate=false;
+        controls.enableZoom = false;
+        controls.enablePan = false;
+        oilip.position.set(0,0,0);
+        scene2.remove(divOil);//removing div tag
+        scene.add(brakelever,bearing,airbrake,wheelaxleip,frameip,supto);
+        
     }
 }
 
