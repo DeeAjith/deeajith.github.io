@@ -51,7 +51,7 @@ var SHADOW_MAP_WIDTH = 2048,
     controls.dampingFactor = 0.06;
     controls.rotateSpeed = 0.05;
     controls.maxPolarAngle = Math.PI / 2.2;
-    camera.position.set(0, 4, 0);
+    camera.position.set(0, 4.5, 0);
 
     var raycaster = new THREE.Raycaster(); // Needed for object intersection
     var mouse = new THREE.Vector3(); //Needed for mouse coordinates
@@ -224,7 +224,7 @@ function onClickadd(event) {
     intersects = raycaster.intersectObject(frameip, true);
     
     //here comes event
-    camera.position.set(0,4,0);
+    camera.position.set(0,4.5,0);
     if (intersects.length > 0) {
         
         frameip.position.set(2.8,1.2,1);
@@ -373,7 +373,7 @@ function onClickrem(event) {
 
     intersects = raycaster.intersectObject(frameip, true);
     if (intersects.length > 0) {
-        camera.position.set(0,4,0);
+        camera.position.set(0,4.5,0);
         //here comes event
         controls.enableRotate=false;
         controls.enableZoom = false;
@@ -384,7 +384,7 @@ function onClickrem(event) {
     }
     intersects = raycaster.intersectObject(wheelaxleip, true);
     if (intersects.length > 0) {
-        camera.position.set(0,4,0);
+        camera.position.set(0,4.5,0);
         //here comes event
         controls.enableRotate=false;
         controls.enableZoom = false;
@@ -396,7 +396,7 @@ function onClickrem(event) {
     intersects = raycaster.intersectObject(bearing, true);
     if (intersects.length > 0) {
         // camera.rotation.set(0,0,0);
-        camera.position.set(0,4,0);
+        camera.position.set(0,4.5,0);
         //here comes event
         controls.enableRotate=false;
         controls.enableZoom = false;
@@ -408,19 +408,19 @@ function onClickrem(event) {
     intersects = raycaster.intersectObject(supto, true);
     if (intersects.length > 0) {
         // camera.rotation.set(0,0,0);
-        camera.position.set(0,4,0);
+        camera.position.set(0,4.5,0);
         //here comes event
         controls.enableRotate=false;
         controls.enableZoom = false;
         controls.enablePan = false;
-        supto.position.set(0,0,0);
+        supto.position.set(0,0,1);
         scene2.remove(divSupto);//removing div tag
         scene.add(oilip,bearing,wheelaxleip,brakelever,frameip,airbrake);
     }
     intersects = raycaster.intersectObject(airbrake, true);
     if (intersects.length > 0) {
         // camera.rotation.set(0,0,0);
-        camera.position.set(0,4,0);
+        camera.position.set(0,4.5,0);
         //here comes event
         controls.enableRotate=false;
         controls.enableZoom = false;
@@ -432,7 +432,7 @@ function onClickrem(event) {
     intersects = raycaster.intersectObject(wheelaxleip, true);
     if (intersects.length > 0) {
         // camera.rotation.set(0,0,0);
-        camera.position.set(0,4,0);
+        camera.position.set(0,4.5,0);
         //here comes event
         controls.enableRotate=false;
         controls.enableZoom = false;
@@ -445,7 +445,7 @@ function onClickrem(event) {
     intersects = raycaster.intersectObject(brakelever, true);
     if (intersects.length > 0) {
         // camera.rotation.set(0,0,0);
-        camera.position.set(0,4,0);
+        camera.position.set(0,4.5,0);
         //here comes event
         controls.enableRotate=false;
         controls.enableZoom = false;
@@ -458,7 +458,7 @@ function onClickrem(event) {
     intersects = raycaster.intersectObject(oilip, true);
     if (intersects.length > 0) {
         // camera.rotation.set(0,0,0);
-        camera.position.set(0,4,0);
+        camera.position.set(0,4.5,0);
         //here comes event
         controls.enableRotate=false;
         controls.enableZoom = false;

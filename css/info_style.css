@@ -9,12 +9,10 @@
 .inst {
     justify-self: auto;
     /* z-index: 100; */
-
+    user-select: none;
 }
 
 .inst h2 {
-    border: 2x solid rgba(226, 226, 226, 0);
-    float: unset !important;
     font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     font-size: 1em;
     font-weight: normal;
@@ -25,10 +23,6 @@
     text-align: left;
     border-bottom-right-radius: 50px;
     position: absolute;
-}
-
-.inst:hover {
-    color: red;
 }
 
 .instcont {
