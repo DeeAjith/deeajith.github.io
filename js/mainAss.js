@@ -185,8 +185,8 @@ function onClickrem(event) {
 
 function render() {
     renderer.render(scene, camera);
+    console.clear();
 }
-
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
