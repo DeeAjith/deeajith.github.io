@@ -1,6 +1,6 @@
 Interactive 3D Expo.
 ==
-
+Hold ctrl then click this link to load in new tab.
 <a href="https://deeajith.github.io/proto3D/" target="_blank">Tour 3dExpo Application</a>
 
 In this application we made using **_opensource_** _API_ ThreeJS to render objects in *WEB* in this version we added features 
